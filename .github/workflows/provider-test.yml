@@ -15,10 +15,6 @@ on:
 permissions:
   contents: read
 
-defaults:
-  run:
-    working-directory: ./terraform-provider
-
 jobs:
   # Ensure project builds before running testing matrix
   build:
@@ -88,5 +84,7 @@ jobs:
       - run: go mod download
       - env:
           TF_ACC: "1"
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+          TEST_KV_ID: ${{ vars.TEST_KV_STORE_ID }}
         run: go test -v -cover ./internal/provider/
         timeout-minutes: 10

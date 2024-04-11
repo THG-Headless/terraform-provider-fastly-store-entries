@@ -8,10 +8,6 @@ on:
     tags:
       - 'v*'
 
-defaults:
-  run:
-    working-directory: ./terraform-provider
-
 # Releases need permissions to read and write the repository contents.
 # GitHub considers creating releases and uploading assets as writing contents.
 permissions:

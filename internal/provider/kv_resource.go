@@ -64,6 +64,9 @@ func (r *KVStoreitemResource) Schema(ctx context.Context, req resource.SchemaReq
 			"store_id": schema.StringAttribute{
 				Required:            true,
 				MarkdownDescription: "The ID of the store where the item will be contained.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplace(),
+				},
 			},
 			"key": schema.StringAttribute{
 				Required:            true,
