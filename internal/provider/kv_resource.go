@@ -58,26 +58,26 @@ func (r *KVStoreitemResource) Metadata(ctx context.Context, req resource.Metadat
 func (r *KVStoreitemResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "A",
+		MarkdownDescription: "An item within a KV store.",
 
 		Attributes: map[string]schema.Attribute{
 			"store_id": schema.StringAttribute{
 				Required:            true,
-				MarkdownDescription: "The ID of the store where the item will be contained.",
+				MarkdownDescription: "The ID of the store where the item will be contained. KV store names have a maximum length of 255 characters and may contain letters, numbers, dashes (-), underscores (_), and periods (.)",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
 				},
 			},
 			"key": schema.StringAttribute{
 				Required:            true,
-				MarkdownDescription: "The Key identifier for the KV store value",
+				MarkdownDescription: "The Key identifier for the KV store value. The maximum length is 1024 UTF-8 bytes.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
 				},
 			},
 			"value": schema.StringAttribute{
 				Required:            true,
-				MarkdownDescription: "The value which will be inserted",
+				MarkdownDescription: "The value which will be inserted. This value can have a maximum size of 25 MB.",
 			},
 			"metadata": schema.StringAttribute{
 				Optional:            true,
