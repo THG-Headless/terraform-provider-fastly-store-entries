@@ -116,7 +116,7 @@ func (r *KVStoreitemResource) Create(ctx context.Context, req resource.CreateReq
 		return
 	}
 
-	_, err := r.updateKVStoreitem(
+	err := r.updateKVStoreitem(
 		ctx,
 		data.StoreId.ValueString(),
 		data.Key.ValueString(),
@@ -181,7 +181,7 @@ func (r *KVStoreitemResource) Update(ctx context.Context, req resource.UpdateReq
 		)
 	}
 
-	_, err := r.updateKVStoreitem(
+	err := r.updateKVStoreitem(
 		ctx,
 		plan.StoreId.ValueString(),
 		plan.Key.ValueString(),
@@ -242,7 +242,7 @@ func (r *KVStoreitemResource) updateKVStoreitem(
 	value string,
 	headers KVStoreAPIHeaders,
 	queryParameters KVStoreAPIQueryParameters,
-) (*http.Response, error) {
+) error {
 	httpReq, err := http.NewRequest(
 		http.MethodPut,
 		fmt.Sprintf("%s/resources/stores/kv/%s/keys/%s", r.baseUrl, storeId, key),
@@ -250,7 +250,7 @@ func (r *KVStoreitemResource) updateKVStoreitem(
 	)
 
 	if err != nil {
-		return nil, &KVStoreitemError{
+		return &KVStoreitemError{
 			shortMessage: "Client Error",
 			detail:       fmt.Sprintf("Unable to create http request, got error: %s", err),
 		}
@@ -272,21 +272,21 @@ func (r *KVStoreitemResource) updateKVStoreitem(
 	httpRes, err := r.client.Do(httpReq)
 
 	if err != nil {
-		return nil, &KVStoreitemError{
+		return &KVStoreitemError{
 			shortMessage: "HTTP Error",
 			detail:       fmt.Sprintf("There has been an error with the http request, got error: %s", err),
 		}
 	}
 
 	if httpRes.StatusCode == 412 {
-		return nil, &KVStoreitemError{
+		return &KVStoreitemError{
 			shortMessage: "Key Conflict",
 			detail:       "This key already exists within the KV store.",
 		}
 	}
 
 	if httpRes.StatusCode == 404 {
-		return nil, &KVStoreitemError{
+		return &KVStoreitemError{
 			shortMessage: "No KV Store Found",
 			detail:       fmt.Sprintf("The KV store %s cannot be found within your account", storeId),
 		}
@@ -296,13 +296,13 @@ func (r *KVStoreitemResource) updateKVStoreitem(
 		defer httpRes.Body.Close()
 		body, _ := io.ReadAll(httpRes.Body)
 		tflog.Error(ctx, fmt.Sprintf("Body: %s", body))
-		return nil, &KVStoreitemError{
+		return &KVStoreitemError{
 			shortMessage: "Unexpected Fastly API Response",
 			detail:       fmt.Sprintf("The KV item Creation Request returned a non-200 response of %s.", httpRes.Status),
 		}
 	}
 
-	return httpRes, nil
+	return nil
 }
 
 func (r *KVStoreitemResource) deleteKVStoreitem(
