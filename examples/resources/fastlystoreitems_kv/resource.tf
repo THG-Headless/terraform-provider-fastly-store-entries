@@ -1,5 +1,5 @@
 resource "fastlystoreitems_kv" "item" {
-  store_id = "0raot2hgsuq8zf9yuv00hf"
+  store_id = "{{STOREID}}"
   key      = "foo"
   value    = "bar"
 }
