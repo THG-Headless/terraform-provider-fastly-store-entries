@@ -33,7 +33,7 @@ type ProviderModel struct {
 }
 
 func (p *fastlystoreitemsProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "fastlystoreitems"
+	resp.TypeName = "fastly-store-items"
 	resp.Version = p.version
 }
 
