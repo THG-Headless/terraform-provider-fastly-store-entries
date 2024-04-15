@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"flag"
+	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 	"log"
 	"terraform-provider-fastly-store-items/internal/provider"
-
-	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 )
+
 //go:generate terraform fmt -recursive ./examples/
 //go:generate go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs generate -provider-name fastly-store-items
 
