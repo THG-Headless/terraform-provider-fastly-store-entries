@@ -1,7 +1,8 @@
 terraform {
   required_providers {
     fastlystoreitems = {
-      source = "fastly-store-items"
+      version = "0.0.2"
+      source = "thg-headless/fastly-store-items"
     }
     fastly = {
       source = "fastly/fastly"
