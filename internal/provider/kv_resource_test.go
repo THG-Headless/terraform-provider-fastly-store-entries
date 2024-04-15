@@ -32,17 +32,17 @@ func TestAccKVResource(t *testing.T) {
 			{
 				Config: testAccKVResourceConfig(TEST_KV_ID, TEST_KV_KEY, "testValue"),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("fastlystoreitems_kv.tester", "store_id", TEST_KV_ID),
-					resource.TestCheckResourceAttr("fastlystoreitems_kv.tester", "key", TEST_KV_KEY),
-					resource.TestCheckResourceAttr("fastlystoreitems_kv.tester", "value", "testValue"),
+					resource.TestCheckResourceAttr("fastly-store-items_kv.tester", "store_id", TEST_KV_ID),
+					resource.TestCheckResourceAttr("fastly-store-items_kv.tester", "key", TEST_KV_KEY),
+					resource.TestCheckResourceAttr("fastly-store-items_kv.tester", "value", "testValue"),
 				),
 			},
 			{
 				Config: testAccKVResourceConfig(TEST_KV_ID, TEST_KV_KEY, "testValue"),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("fastlystoreitems_kv.tester", "store_id", TEST_KV_ID),
-					resource.TestCheckResourceAttr("fastlystoreitems_kv.tester", "key", TEST_KV_KEY),
-					resource.TestCheckResourceAttr("fastlystoreitems_kv.tester", "value", "testValue"),
+					resource.TestCheckResourceAttr("fastly-store-items_kv.tester", "store_id", TEST_KV_ID),
+					resource.TestCheckResourceAttr("fastly-store-items_kv.tester", "key", TEST_KV_KEY),
+					resource.TestCheckResourceAttr("fastly-store-items_kv.tester", "value", "testValue"),
 				),
 			},
 		},
@@ -51,7 +51,7 @@ func TestAccKVResource(t *testing.T) {
 
 func testAccKVResourceConfig(storeId string, key string, value string) string {
 	return fmt.Sprintf(`
-resource "fastlystoreitems_kv" "tester" {
+resource "fastly-store-items_kv" "tester" {
 	store_id = %q
 	key      = %q
 	value    = %q
