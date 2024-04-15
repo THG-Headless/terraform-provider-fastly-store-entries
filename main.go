@@ -33,7 +33,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		Address: "registry.terraform.io/hashicorp/fastly-store-items",
+		Address: "registry.terraform.io/thg-headless/fastly-store-items",
 		Debug:   debug,
 	}
 
